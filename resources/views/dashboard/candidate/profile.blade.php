@@ -2,11 +2,7 @@
 @section('title', 'Profile')
 
 @section('content')
-    @if (session()->has('success'))
-        <x-dashboard.success-alert>
-            {{ session()->get('success') }}
-        </x-dashboard.success-alert>
-    @endif
+
     @include('includes.update-profile')
 
 

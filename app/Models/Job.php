@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Carbon;
 
 class Job extends Model
 {
@@ -14,6 +15,11 @@ class Job extends Model
         'status',
         'approved_at',
     ];
+
+    public function deadline()
+    {
+        return Carbon::parse($this->deadline)->format('Y-m-d');
+    }
     public function company()
     {
         return $this->belongsTo(Company::class);

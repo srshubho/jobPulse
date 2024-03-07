@@ -23,16 +23,20 @@
 <body class="bg-gray-50 dark:bg-slate-900">
     {{-- @dd(auth()->user()) --}}
     <x-dashboard.header />
-    @if (auth()->user()->user_type == 'admin')
-        <x-dashboard.sidebar />
-    @elseif (auth()->user()->user_type == 'company')
-        <x-dashboard.company-sidebar />
-    @else
-        <x-dashboard.candidate-sidebar />
-    @endif
+    <x-dashboard.sidebar />
 
     <!-- Content -->
     <div class="w-full pt-10 px-4 sm:px-6 md:px-8 lg:ps-72">
+        @if (session()->has('success'))
+            <x-dashboard.success-alert>
+                {{ session()->get('success') }}
+            </x-dashboard.success-alert>
+        @endif
+        @if (session()->has('error'))
+            <x-dashboard.error-alert>
+                {{ session()->get('error') }}
+            </x-dashboard.error-alert>
+        @endif
         @yield('content')
     </div>
 

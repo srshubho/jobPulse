@@ -13,6 +13,23 @@ class JobController extends Controller
         $jobs = Job::where('company_id', auth()->user()->company->id)->get() ?? [];
         return view('dashboard.company.job-list', compact('jobs'));
     }
+
+    public function jobs()
+    {
+        $jobs = Job::all();
+        return view('website.jobs', compact('jobs'));
+    }
+
+    public function apply(Job $job)
+    {
+        return redirect('/jobs');
+    }
+
+    public function jobDetails(Job $job)
+    {
+        $job = Job::where('id', $job->id)->with('company.user')->first();
+        return view('website.job-view', compact('job'));
+    }
     public function create()
     {
         $categories = DB::table('job_categories')->get();
@@ -26,7 +43,7 @@ class JobController extends Controller
 
     public function store(Request $request)
     {
-        // dd($request->all());
+        $this->authorize('create', Job::class);
         $company_id = auth()->user()->company->id;
         $request->validate([
             'title' => 'required',

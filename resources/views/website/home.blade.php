@@ -1,4 +1,4 @@
 @extends('layouts.website')
 @section('content')
-    @include('includes.website.hero')
+    @include('includes.website.hero', ['home' => $home])
 @endsection

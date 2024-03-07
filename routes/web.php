@@ -28,7 +28,11 @@ Route::get('/', function () {
     return view('welcome');
 });
 //website route
-Route::get('/home', [HomeController::class, 'index'])->name('home');
+Route::get('/', [HomeController::class, 'index'])->name('home');
+Route::get('/jobs', [JobController::class, 'jobs'])->name('jobs');
+Route::get('/jobDetails/{job}', [JobController::class, 'jobDetails'])->name('job.details');
+Route::get('/jobApply/{job}', [JobController::class, 'apply'])->middleware('auth')->name('job.apply');
+
 
 
 
@@ -68,9 +72,9 @@ Route::delete('/candidates/experience/delete/{experience}', [CandidateController
 
 Route::get('/dashboard', function () {
     return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
-
-
+})->middleware(['isAdmin'])->name('dashboard');
+Route::get('admin/pages/home', [HomeController::class, 'create'])->name('admin.home')->middleware('isAdmin');
+Route::post('admin/pages/home', [HomeController::class, 'store'])->name('admin.home.store')->middleware('isAdmin');
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
