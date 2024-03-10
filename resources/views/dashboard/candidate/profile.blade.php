@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.candidate')
 @section('title', 'Profile')
 
 @section('content')

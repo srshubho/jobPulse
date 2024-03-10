@@ -18,8 +18,10 @@ class IsCandidate
         if (auth()->check()) {
             if (auth()->user()->user_type == 'candidate') {
                 return $next($request);
+            } else {
+                abort(404);
             }
         }
-        return redirect()->route('home')->with('error', 'You do not have permission to access this resource.');
+        return redirect()->route('candidate.login')->with('error', 'You do not have permission to access this resource.');
     }
 }

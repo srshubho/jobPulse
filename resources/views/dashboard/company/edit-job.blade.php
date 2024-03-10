@@ -1,14 +1,14 @@
 @php
     $title = 'Edit Job';
 @endphp
-@extends('layouts.app')
+@extends('layouts.company')
 @section('content')
     <!-- Card Section -->
     <div class="max-w-[85rem] px-4 py-10 sm:px-6 lg:px-8 lg:py-14 mx-auto">
         <!-- Grid -->
 
         <!-- Card -->
-        <x-dashboard.form :title="$title" :action="route('jobs.edit', $job->id)">
+        <x-dashboard.form :title="$title" :action="route('companies.jobs.edit', $job->id)">
             @method('PUT')
             <div class="mb-4 sm:mb-8">
                 <x-dashboard.label for="hs-feedback-post-comment-name-1">Job Title</x-dashboard.label>

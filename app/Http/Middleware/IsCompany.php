@@ -20,6 +20,6 @@ class IsCompany
                 return $next($request);
             }
         }
-        return redirect()->route('home')->with('error', 'You do not have permission to access this resource.');
+        return redirect()->route('companies.login')->with('error', 'You do not have permission to access this resource.');
     }
 }

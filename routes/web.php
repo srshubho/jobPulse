@@ -33,39 +33,63 @@ Route::get('/jobs', [JobController::class, 'jobs'])->name('jobs');
 Route::get('/jobDetails/{job}', [JobController::class, 'jobDetails'])->name('job.details');
 Route::get('/jobApply/{job}', [JobController::class, 'apply'])->middleware('auth')->name('job.apply');
 
+Route::group(
+    [
+        'prefix' => 'candidates/',
+        'as' => 'candidates.',
+        'middleware' => ['isCandidate']
+    ],
+    function () {
+
+        Route::get('register', [CandidateController::class, 'register'])->name('register')->withoutMiddleware('isCandidate');
+        Route::post('register', [CandidateController::class, 'store'])->name('store')->withoutMiddleware('isCandidate');
+        Route::get('login', [CandidateController::class, 'login'])->name('login')->withoutMiddleware('isCandidate');
+        Route::post('login', [CandidateController::class, 'loginCheck'])->name('loginCheck')->withoutMiddleware('isCandidate');
+        Route::get('dashboard', [CandidateController::class, 'index'])->name('dashboard');
+        Route::get('profile', [CandidateController::class, 'profile'])->name('profile');
+        Route::get('profile/edit', [CandidateController::class, 'edit'])->name('edit');
+        Route::put('profile/edit', [CandidateController::class, 'updateProfile'])->name('update');
+        Route::post('create-education', [CandidateController::class, 'storeEducation'])->name('education.store');
+        Route::post('create-experience', [CandidateController::class, 'storeExperience'])->name('experience.store');
+        Route::put('education/edit/{education}', [CandidateController::class, 'updateEducation'])->name('education.update');
+        Route::put('experience/edit/{experience}', [CandidateController::class, 'updateExperience'])->name('experience.update');
+        Route::delete('candidates/experience/delete/{experience}', [CandidateController::class, 'destroyExperience'])->name('experience.delete');
+        Route::delete('candidates/education/delete/{education}', [CandidateController::class, 'destroyEducation'])->name('education.delete');
+    }
+);
+
+
+
 
 
 
 //Company route
-Route::get('/companies/register', [CompanyController::class, 'register'])->name('companies.register');
-Route::post('/companies/register', [CompanyController::class, 'store'])->name('companies.store');
-Route::get('/companies/login', [CompanyController::class, 'login'])->name('companies.login');
-Route::post('/companies/login', [CompanyController::class, 'loginCheck'])->name('companies.loginCheck');
-Route::get('/companies/dashboard', [CompanyController::class, 'index'])->name('companies.dashboard');
-Route::get('companies/jobPost', [JobController::class, 'create'])->name('jobs.create');
-Route::post('companies/jobPost', [JobController::class, 'store'])->name('jobs.store');
-Route::get('companies/jobs', [JobController::class, 'index'])->name('jobs.list');
-Route::get('/companies/jobView/{job}', [JobController::class, 'show'])->name('jobs.view');
-Route::get('companies/jobs/edit/{job}', [JobController::class, 'edit'])->name('jobs.edit');
-Route::put('companies/jobs/edit/{job}', [JobController::class, 'update'])->name('jobs.update');
-Route::delete('companies/jobs/delete/{job}', [JobController::class, 'destroy'])->name('jobs.delete');
+Route::group(
+    [
+        'prefix' => 'companies/',
+        'as' => 'companies.',
+        'middleware' => ['isCompany']
+    ],
+    function () {
+
+        Route::get('register', [CompanyController::class, 'register'])->name('register')->withoutMiddleware('isCompany');
+        Route::post('register', [CompanyController::class, 'store'])->name('store')->withoutMiddleware('isCompany');
+        Route::get('login', [CompanyController::class, 'login'])->name('login')->withoutMiddleware('isCompany');
+        Route::post('login', [CompanyController::class, 'loginCheck'])->name('loginCheck')->withoutMiddleware('isCompany');
+        Route::get('dashboard', [CompanyController::class, 'index'])->name('dashboard');
+        Route::get('jobPost', [JobController::class, 'create'])->name('jobs.create');
+        Route::post('jobPost', [JobController::class, 'store'])->name('jobs.store');
+        Route::get('jobs', [JobController::class, 'index'])->name('jobs.list');
+        Route::get('jobView/{job}', [JobController::class, 'show'])->name('jobs.view');
+        Route::get('jobs/edit/{job}', [JobController::class, 'edit'])->name('jobs.edit');
+        Route::put('jobs/edit/{job}', [JobController::class, 'update'])->name('jobs.update');
+        Route::delete('companies/jobs/delete/{job}', [JobController::class, 'destroy'])->name('jobs.delete');
+    }
+);
 
 
 //Candidate route
-Route::get('/candidates/register', [CandidateController::class, 'register'])->name('candidates.register');
-Route::post('/candidates/register', [CandidateController::class, 'store'])->name('candidates.store');
-Route::get('/candidates/login', [CandidateController::class, 'login'])->name('candidates.login');
-Route::post('/candidates/login', [CandidateController::class, 'loginCheck'])->name('candidates.loginCheck');
-Route::get('/candidates/dashboard', [CandidateController::class, 'index'])->name('candidates.dashboard');
-Route::get('/candidates/profile', [CandidateController::class, 'profile'])->name('candidates.profile');
-Route::get('/candidates/profile/edit', [CandidateController::class, 'edit'])->name('candidates.edit');
-Route::put('/candidates/profile/edit', [CandidateController::class, 'updateProfile'])->name('candidates.update');
-Route::post('/candidates/create-education', [CandidateController::class, 'storeEducation'])->name('candidates.education.store');
-Route::post('/candidates/create-experience', [CandidateController::class, 'storeExperience'])->name('candidates.experience.store');
-Route::put('/candidates/education/edit/{education}', [CandidateController::class, 'updateEducation'])->name('candidates.education.update');
-Route::put('/candidates/experience/edit/{experience}', [CandidateController::class, 'updateExperience'])->name('candidates.experience.update');
-Route::delete('/candidates/education/delete/{education}', [CandidateController::class, 'destroyEducation'])->name('candidates.education.delete');
-Route::delete('/candidates/experience/delete/{experience}', [CandidateController::class, 'destroyExperience'])->name('candidates.experience.delete');
+
 
 
 

@@ -63,11 +63,19 @@ class CompanyController extends Controller
 
     public function loginCheck(LoginRequest $request): RedirectResponse
     {
-        $request->authenticate();
+        $credentials = $request->validate([
+            'email' => 'required|email|exists:users,email',
+            'password' => 'required',
+        ]);
+        $credentials['user_type'] = 'company';
+        if (Auth::attempt($credentials)) {
 
-        $request->session()->regenerate();
+            $request->session()->regenerate();
 
-        return redirect()->intended('/companies/dashboard');
+            return redirect()->intended('companies/dashboard');
+        }
+
+        return back()->with('error', 'The provided credentials do not match our records.');
     }
 
 }

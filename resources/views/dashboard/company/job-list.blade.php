@@ -10,9 +10,41 @@
         ]);
     }
 @endphp
-@extends('layouts.app')
+@extends('layouts.company')
 @section('content')
     <x-dashboard.table>
+        <x-slot:header>
+            <div
+                class="px-6 py-4 grid gap-3 md:flex md:justify-between md:items-center border-b border-gray-200 dark:border-gray-700">
+                <div>
+                    <h2 class="text-xl font-semibold text-gray-800 dark:text-gray-200">
+                        Users
+                    </h2>
+                    <p class="text-sm text-gray-600 dark:text-gray-400">
+                        Add users, edit and more.
+                    </p>
+                </div>
+
+                <div>
+                    <div class="inline-flex gap-x-2">
+                        <a class="py-2 px-3 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-gray-200 bg-white text-gray-800 shadow-sm hover:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none dark:bg-slate-900 dark:border-gray-700 dark:text-white dark:hover:bg-gray-800 dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600"
+                            href="#">
+                            View all
+                        </a>
+
+                        <a class="py-2 px-3 inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent bg-blue-600 text-white hover:bg-blue-700 disabled:opacity-50 disabled:pointer-events-none dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600"
+                            href="{{ route('companies.jobs.create') }}">
+                            <svg class="flex-shrink-0 size-3" xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                viewBox="0 0 16 16" fill="none">
+                                <path d="M2.63452 7.50001L13.6345 7.5M8.13452 13V2" stroke="currentColor" stroke-width="2"
+                                    stroke-linecap="round" />
+                            </svg>
+                            Create Job
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </x-slot:header>
         <x-dashboard.thead>
             <th scope="col" class="ps-6 py-3 text-start">
                 <label for="hs-at-with-checkboxes-main" class="flex">
@@ -123,11 +155,11 @@
 
                     <x-dashboard.action>
                         <a class="flex items-center gap-x-3 py-2 px-3 rounded-lg text-sm text-gray-800 hover:bg-gray-100 focus:ring-2 focus:ring-blue-500 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-gray-300 dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600"
-                            href="{{ route('jobs.view', $job->id) }}">
+                            href="{{ route('companies.jobs.view', $job->id) }}">
                             View job
                         </a>
                         <a class="flex items-center gap-x-3 py-2 px-3 rounded-lg text-sm text-gray-800 hover:bg-gray-100 focus:ring-2 focus:ring-blue-500 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-gray-300 dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600"
-                            href="{{ route('jobs.edit', $job->id) }}">
+                            href="{{ route('companies.jobs.edit', $job->id) }}">
                             Edit job
                         </a>
                         <div class="py-2 first:pt-0 last:pb-0">
@@ -155,7 +187,7 @@
                         data-hs-overlay="#hs-danger-alert">
                         Cancel
                     </button>
-                    <form action="{{ route('jobs.delete', $job->id) }}" method="POST">
+                    <form action="{{ route('companies.jobs.delete', $job->id) }}" method="POST">
                         @csrf
                         @method('DELETE')
                         <button

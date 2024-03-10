@@ -1,14 +1,14 @@
 @php
     $title = 'Create Job';
 @endphp
-@extends('layouts.app')
+@extends('layouts.company')
 @section('content')
     <!-- Card Section -->
     <div class="max-w-[85rem] px-4 py-10 sm:px-6 lg:px-8 lg:py-14 mx-auto">
         <!-- Grid -->
 
         <!-- Card -->
-        <x-dashboard.form :title="'Create Job'" :action="route('jobs.store')">
+        <x-dashboard.form :title="'Create Job'" :action="route('companies.jobs.store')">
             <div class="mb-4 sm:mb-8">
                 <x-dashboard.label for="hs-feedback-post-comment-name-1">Job Title</x-dashboard.label>
                 <x-dashboard.input type="text" name="title" placeholder="Job Title" value="{{ old('title') }}" />

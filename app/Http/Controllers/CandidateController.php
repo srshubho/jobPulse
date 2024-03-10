@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Auth\Events\Registered;
-use App\Http\Requests\Auth\LoginRequest;
+
 
 class CandidateController extends Controller
 {
@@ -62,13 +62,21 @@ class CandidateController extends Controller
         return view('auth.candidate.login');
     }
 
-    public function loginCheck(LoginRequest $request): RedirectResponse
+    public function loginCheck(Request $request): RedirectResponse
     {
-        $request->authenticate();
+        $credentials = $request->validate([
+            'email' => 'required|email|exists:users,email',
+            'password' => 'required',
+        ]);
+        $credentials['user_type'] = 'candidate';
+        if (Auth::attempt($credentials)) {
 
-        $request->session()->regenerate();
+            $request->session()->regenerate();
 
-        return redirect()->intended('/candidates/dashboard');
+            return redirect()->intended('candidates/dashboard');
+        }
+
+        return back()->with('error', 'The provided credentials do not match our records.');
     }
 
     public function profile()
