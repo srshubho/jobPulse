@@ -1,14 +1,5 @@
 @extends('layouts.guest')
 @section('content')
-    @if ($errors->any())
-        <div class="alert alert-danger">
-            <ul>
-                @foreach ($errors->all() as $error)
-                    <li>{{ $error }}</li>
-                @endforeach
-            </ul>
-        </div>
-    @endif
     <div class="p-4 sm:p-7">
         <div class="text-center">
             <h1 class="block text-2xl font-bold text-gray-800 dark:text-white">Sign in</h1>

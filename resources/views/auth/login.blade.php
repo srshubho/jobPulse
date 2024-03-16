@@ -3,18 +3,11 @@
     <div class="p-4 sm:p-7">
         <div class="text-center">
             <h1 class="block text-2xl font-bold text-gray-800 dark:text-white">Sign in</h1>
-            <p class="mt-2 text-sm text-gray-600 dark:text-gray-400">
-                Don't have an account yet?
-                <a class="text-blue-600 decoration-2 hover:underline font-medium dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600"
-                    href="../examples/html/signup.html">
-                    Sign up here
-                </a>
-            </p>
         </div>
 
         <div class="mt-5">
 
-            <form method="POST" action="/login">
+            <form method="POST" action="{{ route('admin.authenticate') }}">
                 @csrf
                 <div class="grid gap-y-4">
                     <!-- Form Group -->
